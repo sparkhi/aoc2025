@@ -1,4 +1,4 @@
-import sbt._
+import sbt.*
 object Dependencies {
   private lazy val scalaTestVersion = "3.2.18"
 
