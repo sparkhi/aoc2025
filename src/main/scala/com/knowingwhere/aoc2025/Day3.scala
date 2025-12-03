@@ -14,6 +14,6 @@ class Day3:
 
 object Day3 extends App :
   private val lines = Source.fromResource("day3-input.txt").getLines().toList
-  val day3 = new Day3()
-  val jolts = lines.map(eachLine => day3.getLargestTwoDigitNumber(eachLine)).sum
+  private val day3 = new Day3()
+  private val jolts = lines.map(eachLine => day3.getLargestTwoDigitNumber(eachLine)).sum
   println(jolts)
