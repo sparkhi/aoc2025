@@ -1,19 +1,28 @@
 package com.knowingwhere.aoc2025
 
+import scala.annotation.tailrec
 import scala.io.Source
 
 class Day3:
-  def getLargestTwoDigitNumber(stringOfDigits: String): Int = {
-    val maxTensPlace = stringOfDigits.substring(0, stringOfDigits.length - 1).max.toString
-    val indexInString = stringOfDigits.indexOf(maxTensPlace)
 
-    val maxUnitsPlace = stringOfDigits.substring(indexInString + 1).max.toString
-    (maxTensPlace + maxUnitsPlace).toInt
-  }
+  @tailrec
+  final def getLargestNDigitNumber(stringOfDigits: String, numberOfDigits: Int, accumulatedNumberString: String) : Long = 
+    if (accumulatedNumberString.length == numberOfDigits)
+      accumulatedNumberString.toLong
+    else {
+      val maxDigit = stringOfDigits.substring(0, stringOfDigits.length - (numberOfDigits - accumulatedNumberString.length - 1)).max.toString
+      val maxDigitIndex = stringOfDigits.indexOf(maxDigit)
+  
+      val remainingString = stringOfDigits.substring(maxDigitIndex + 1)
+      getLargestNDigitNumber(remainingString, numberOfDigits, accumulatedNumberString + maxDigit)
+    }
 
 
 object Day3 extends App :
   private val lines = Source.fromResource("day3-input.txt").getLines().toList
   private val day3 = new Day3()
-  private val jolts = lines.map(eachLine => day3.getLargestTwoDigitNumber(eachLine)).sum
+  private val jolts = lines.map(eachLine => day3.getLargestNDigitNumber(eachLine, 2, "")).sum
   println(jolts)
+
+  private val jolts2 = lines.map(eachLine => day3.getLargestNDigitNumber(eachLine, 12, "")).sum
+  println(jolts2)
