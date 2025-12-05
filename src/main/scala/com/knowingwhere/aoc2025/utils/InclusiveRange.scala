@@ -3,8 +3,8 @@ package com.knowingwhere.aoc2025.utils
 case class InclusiveRange(min: Long, max: Long) {
   require(min <= max, s"$min should be <= $max")
 
-  val minLength = min.toString.length
-  val maxLength = max.toString.length
+  val minLength: Int = min.toString.length
+  val maxLength: Int = max.toString.length
 
   def isInRange(num: Long): Boolean = {
     num >= min && num <= max
