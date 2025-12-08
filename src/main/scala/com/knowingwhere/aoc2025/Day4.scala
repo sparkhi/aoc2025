@@ -13,7 +13,7 @@ object Day4:
     val allPositions = (for {
       row <- 0 to totalRows
       col <- 0 to totalCols
-    } yield (Position(row, col))).toList
+    } yield Position(row, col)).toList
 
     val rollPositions = allPositions.filter(grid.getItemAt(_) == "@")
     val surroundingCounts = rollPositions.count(Day4.findCountOfAdjacentRolls(grid, _) < 4)
