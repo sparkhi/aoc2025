@@ -11,10 +11,20 @@ case class InclusiveRange(min: Long, max: Long) {
   }
 
   def hasEvenDigits: Boolean = {
-    if minLength % 2 == 0 || maxLength % 2 == 0 then
-      true
-    else
-      if maxLength >= minLength + 2 then true else false
+    minLength % 2 == 0 ||
+    maxLength % 2 == 0 ||
+    maxLength >= minLength + 2
+  }
+
+  def mergeWith(another: InclusiveRange): InclusiveRange = {
+    if hasOverlap(another) then 
+      InclusiveRange(Math.min(min, another.min), Math.max(max, another.max))
+    else 
+      this
+  }
+
+  def hasOverlap(another: InclusiveRange): Boolean = {
+    Math.max(min, another.min) <= Math.min(max, another.max)
   }
 
   def getIncludedEvenDigitsRange: Either[String, InclusiveRange] = {
