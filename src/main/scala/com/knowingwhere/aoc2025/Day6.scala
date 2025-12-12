@@ -4,7 +4,7 @@ import scala.annotation.tailrec
 import scala.io.Source
 
 object Day6 {
-  def main(args: Array[String]) = {
+  def main(args: Array[String]): Unit = {
     val lines = Source.fromResource("day6-input.txt").getLines().toList
     val operatorsLine = lines.last
     val problems = LoadProblems(lines.init, lines.last, 0, List.empty)
@@ -15,7 +15,7 @@ object Day6 {
   }
 
   @tailrec
-  def LoadProblems2(operandLines: List[String], operatorLine: String, currentIndex: Int, accumulatedProblems: List[Problem]): List[Problem] = {
+  private def LoadProblems2(operandLines: List[String], operatorLine: String, currentIndex: Int, accumulatedProblems: List[Problem]): List[Problem] = {
     val nextNonSpace = operatorLine.indexWhere(!_.isWhitespace, currentIndex + 1)
     if nextNonSpace == -1 then
       val problemValues = transposedList(operandLines.map(_.substring(currentIndex)), 0, List.empty)
@@ -28,8 +28,9 @@ object Day6 {
     }
   }
 
-  def transposedList(original: List[String], index: Int, accumulated: List[Long]): List[Long] = {
-    if (index >= original.head.length) then
+  @tailrec
+  private def transposedList(original: List[String], index: Int, accumulated: List[Long]): List[Long] = {
+    if index >= original.head.length then
       accumulated
     else {
       val transposed = original.map(_.substring(index, index + 1)).mkString.strip().toLong
@@ -39,7 +40,7 @@ object Day6 {
 
 
   @tailrec
-  def LoadProblems(operandLines: List[String], operatorLine: String, currentIndex: Int, accumulatedProblems: List[Problem]): List[Problem] = {
+  private def LoadProblems(operandLines: List[String], operatorLine: String, currentIndex: Int, accumulatedProblems: List[Problem]): List[Problem] = {
     val nextNonSpace =  operatorLine.indexWhere(!_.isWhitespace, currentIndex + 1)
     if nextNonSpace == -1 then
       val problemValues = operandLines.map(_.substring(currentIndex)).map(_.strip().toLong)
