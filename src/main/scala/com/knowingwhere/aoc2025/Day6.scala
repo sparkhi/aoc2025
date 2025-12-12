@@ -22,9 +22,9 @@ object Day6 {
       val operator = operatorLine.substring(currentIndex).strip()
       accumulatedProblems :+ Problem(problemValues, operator)
     else {
-      val problemValues2 = transposedList(operandLines.map(_.substring(currentIndex, nextNonSpace - 1)), 0, List.empty)
+      val problemValues = transposedList(operandLines.map(_.substring(currentIndex, nextNonSpace - 1)), 0, List.empty)
       val operator = operatorLine.substring(currentIndex, nextNonSpace - 1).strip()
-      LoadProblems2(operandLines, operatorLine, nextNonSpace, accumulatedProblems :+ Problem(problemValues2, operator))
+      LoadProblems2(operandLines, operatorLine, nextNonSpace, accumulatedProblems :+ Problem(problemValues, operator))
     }
   }
 
